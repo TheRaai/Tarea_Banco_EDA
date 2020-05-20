@@ -1,21 +1,28 @@
 #include "hash.h"
 
 int hashCode(char key){
-  return key % SIZE;
+  int z= (int)(key);
+  return z%SIZE;
 }
-hash hashArray[SIZE];
+hash hashArray[26];
 
 
 void insert(char key,int id,char* nombre, char* apellido, char* email,char* genero, char* direccion){
-  int index = hashCode(key);
+  int index=0;
+  index=hashCode(key);
   cliente* temp = (cliente*)malloc(sizeof(cliente));
+  temp->nombre = (char*)malloc(sizeof(char*)*sizeof(nombre)+1);
+  temp->apellido = (char*)malloc(sizeof(char*)*sizeof(apellido)+1);
+  temp->email = (char*)malloc(sizeof(char*)*sizeof(email)+1);
+  temp->genero = (char*)malloc(sizeof(char*)*sizeof(genero)+1);
+  temp->direccion = (char*)malloc(sizeof(char*)*sizeof(direccion)+1);
   temp->key = key;
   temp->id = id;
-  temp->nombre = nombre;
-  temp->apellido = apellido;
-  temp->email = email;
-  temp->genero = genero;
-  temp->direccion = direccion;
+  strcpy(temp->nombre,nombre);
+  strcpy(temp->apellido,apellido);
+  strcpy(temp->email,email);
+  strcpy(temp->genero,genero);
+  strcpy(temp->direccion,direccion);
   temp->saldo = 0;
   temp->transacciones = crear_pila();
   temp->next = NULL;
@@ -23,16 +30,12 @@ void insert(char key,int id,char* nombre, char* apellido, char* email,char* gene
     hashArray[index].head = temp;
     hashArray[index].tail = temp;
     hashArray[index].n_elem++;
-    printf("Agregado: %s con llave: %c\n",hashArray[index].head->apellido,hashArray[index].tail->key);
   }
   else{
     hashArray[index].tail->next = temp;
     hashArray[index].tail = temp;
-    hashArray[index].head->next = hashArray[index].tail;
-    printf("Agregado: %s con llave: %c\n",hashArray[index].tail->apellido,hashArray[index].tail->key);
+    hashArray[index].n_elem++;
   }
-  free(temp);
-
 }
 
 
@@ -139,34 +142,59 @@ void leer_archivo(char* filename){
 
 cliente* search_apellido(char* apellido){
   cliente* temp = (cliente*)malloc(sizeof(cliente));
-  int index = hashCode(apellido[0]);
-  while(hashArray[index].head!=NULL){
-    temp = hashArray[index].head;
-    printf("apellido: %s\n",temp->apellido);
-    if(temp->key ==apellido[0]){
-      if(temp->apellido==apellido){
+  int i = 0;
+  while(hashArray[i].head!=NULL){
+    temp = hashArray[i].head;
+    while(temp->next!=NULL){
+      if(strcmp(temp->apellido,apellido)==0){
         return temp;
       }
+      temp=temp->next;
     }
-    temp = temp->next;
-    
-    ++index;
-    index%=SIZE;
+    i++;
   }
+  return NULL;
+}
 
+cliente* search_id(int id){
+  cliente* temp = (cliente*)malloc(sizeof(cliente));
+  int i = 0;
+  while(hashArray[i].head!=NULL){
+    temp = hashArray[i].head;
+    while(temp->next!=NULL){
+      if(temp->id==id){
+        return temp;
+      }
+      temp=temp->next;
+    }
+    i++;
+  }
+  return NULL;
+}
+
+cliente* search_nombre(char* nombre){
+  cliente* temp = (cliente*)malloc(sizeof(cliente));
+  int i = 0;
+  while(hashArray[i].head!=NULL){
+    temp = hashArray[i].head;
+    while(temp->next!=NULL){
+      if(strcmp(temp->nombre,nombre)==0){
+        return temp;
+      }
+      temp=temp->next;
+    }
+    i++;
+  }
   return NULL;
 }
 
 void display(){
   int i=0;
   cliente* temp;
-  temp = hashArray[hashCode('A')].head;
-  printf("%s\n",hashArray[hashCode('D')].head->nombre);
-  if(temp->key == 'A'){
-    printf("Nombre: %s Apellido : %s\n",temp->nombre,temp->apellido);
+  while(i<26 && hashArray[i].tail!=NULL){
+    temp=hashArray[i].head;
+    printf("nombre: %s\n",hashArray[i].head->nombre);
+    i++;
   }
-  else{
-    printf("Im gonna kms\n");
-  }
-  
+
 }

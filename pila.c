@@ -19,13 +19,13 @@ pila* crear_transaccion(int id, int transaccion){
   return transacciones;
 }
 
-void push(pila** top ,int id, int transaccion){
+void agregar_elemento_pila(pila** top ,int id, int transaccion){
   pila* transacciones = crear_transaccion(id,transaccion);
   transacciones->next = *top;
   *top = transacciones;
 }
 
-void pop(pila** top){
+void eliminar_elemento_pila(pila** top){
   pila* temp = *top;
   *top = (*top)->next;
   free(temp);
@@ -33,6 +33,6 @@ void pop(pila** top){
 
 void eliminar_pila(pila* top){
   while(!isEmpty(top)){
-    pop(&top);
+    eliminar_elemento_pila(&top);
   }
 }

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 typedef struct cliente{
   int id;
   char* nombre;
@@ -16,5 +17,5 @@ typedef struct cliente{
 }cliente;
 
 void crear_lista();
-void agregar_cliente(cliente** h_ref,int id,char* nombre,char* apellido,char* email,char* genero,char* direccion);
-void borrar_cliente(cliente** h_ref,int id);
+void agregar_elemento_lista(cliente** h_ref,int id,char* nombre,char* apellido,char* email,char* genero,char* direccion);
+void eliminar_elemento_lista(cliente** h_ref,int id);

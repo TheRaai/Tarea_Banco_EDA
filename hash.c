@@ -1,15 +1,20 @@
 #include "hash.h"
 
-int hashCode(char key){
+
+hash hashArray[26];
+lista aux[10];
+lista aux2[20];
+int max = 1;
+
+int hashCode(char key){//Consigue el index donde va la letra
   int z= (int)(key);
   return z%SIZE;
 }
-hash hashArray[26];
 
-
-void insert(char key,int id,char* nombre, char* apellido, char* email,char* genero, char* direccion){
+void agregar_elemento_hash(char key,int id,char* nombre, char* apellido, char* email,char* genero, char* direccion){
   int index=0;
   index=hashCode(key);
+  //Crea cliente auxiliar con los datos a ingresar
   cliente* temp = (cliente*)malloc(sizeof(cliente));
   temp->nombre = (char*)malloc(sizeof(char*)*sizeof(nombre)+1);
   temp->apellido = (char*)malloc(sizeof(char*)*sizeof(apellido)+1);
@@ -26,18 +31,19 @@ void insert(char key,int id,char* nombre, char* apellido, char* email,char* gene
   temp->saldo = 0;
   temp->transacciones = crear_pila();
   temp->next = NULL;
-  if(hashArray[index].head == NULL){
+  //////////
+  if(hashArray[index].head == NULL){//Si es el primero en su letra en ser ingresado
     hashArray[index].head = temp;
     hashArray[index].tail = temp;
-    hashArray[index].n_elem++;
+    //printf("index: %d Apellido: %s direccion: %s\n",id,hashArray[index].head->apellido,hashArray[index].head->direccion);
   }
-  else{
+  else{//Si ya existe alguien mas con su letra
     hashArray[index].tail->next = temp;
     hashArray[index].tail = temp;
-    hashArray[index].n_elem++;
+    //printf("index: %d Apellido: %s direccion: %s\n",id,hashArray[index].tail->apellido,hashArray[index].tail->direccion);
+
   }
 }
-
 
 void leer_archivo(char* filename){
   FILE* arch = fopen(filename,"r");
@@ -50,92 +56,94 @@ void leer_archivo(char* filename){
   int id;
   char* nom,*ape,*email,*gen,*dir;
   while(fgets(aux,999,arch)){
-
+    //consigue los datos
     id = atoi(strtok(aux,"\t"));
     nom = strtok(NULL,"\t");
     ape = strtok(NULL,"\t");
     email = strtok(NULL,"\t");
     gen = strtok(NULL,"\t");
     dir = strtok(NULL,"\t");
+    /////////
+    //Todos los casos posibles, viendo por primera letra del apellido
     if(ape[0]=='A'){
-      insert('A',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('A',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='B'){
-      insert('B',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('B',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='C'){
-      insert('C',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('C',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='D'){
-      insert('D',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('D',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='E'){
-      insert('E',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('E',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='F'){
-      insert('F',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('F',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='G'){
-      insert('G',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('G',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='H'){
-      insert('H',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('H',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='I'){
-      insert('I',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('I',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='J'){
-      insert('J',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('J',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='K'){
-      insert('K',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('K',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='L'){
-      insert('L',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('L',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='M'){
-      insert('M',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('M',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='N'){
-      insert('N',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('N',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='O'){
-      insert('O',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('O',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='P'){
-      insert('P',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('P',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='Q'){
-      insert('Q',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('Q',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='R'){
-      insert('R',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('R',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='S'){
-      insert('S',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('S',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='T'){
-      insert('T',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('T',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='U'){
-      insert('U',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('U',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='V'){
-      insert('V',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('V',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='W'){
-      insert('W',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('W',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='X'){
-      insert('X',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('X',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='Y'){
-      insert('Y',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('Y',id,nom,ape,email,gen,dir);
     }
     else if(ape[0]=='Z'){
-      insert('Z',id,nom,ape,email,gen,dir);
+      agregar_elemento_hash('Z',id,nom,ape,email,gen,dir);
     }
-
+    ///////
   }
   fclose(arch);
 }
@@ -143,10 +151,12 @@ void leer_archivo(char* filename){
 cliente* search_apellido(char* apellido){
   cliente* temp = (cliente*)malloc(sizeof(cliente));
   int i = 0;
+  //Itera hasta que se acabe el arreglo
   while(hashArray[i].head!=NULL){
     temp = hashArray[i].head;
-    while(temp->next!=NULL){
-      if(strcmp(temp->apellido,apellido)==0){
+    //Itera toda la letra
+    while(temp!=NULL){
+      if(strcmp(temp->apellido,apellido)==0){//Revisa si es el apellido buscado
         return temp;
       }
       temp=temp->next;
@@ -159,14 +169,16 @@ cliente* search_apellido(char* apellido){
 cliente* search_id(int id){
   cliente* temp = (cliente*)malloc(sizeof(cliente));
   int i = 0;
+  //Itera hasta que se acabe el arreglo
   while(hashArray[i].head!=NULL){
     temp = hashArray[i].head;
-    while(temp->next!=NULL){
-      if(temp->id==id){
+    //Itera toda la letra
+    while(temp!=NULL){
+      if(temp->id==id){//Revisa el id
         return temp;
       }
       temp=temp->next;
-    }
+    }   
     i++;
   }
   return NULL;
@@ -175,26 +187,261 @@ cliente* search_id(int id){
 cliente* search_nombre(char* nombre){
   cliente* temp = (cliente*)malloc(sizeof(cliente));
   int i = 0;
+  //Itera hasta que se acabe el arreglo
   while(hashArray[i].head!=NULL){
     temp = hashArray[i].head;
-    while(temp->next!=NULL){
-      if(strcmp(temp->nombre,nombre)==0){
+    //Itera toda la letra
+    while(temp!=NULL){
+      if(strcmp(temp->nombre,nombre)==0){//Revisa nombre
         return temp;
+      }
+      temp=temp->next;
+    }   
+    i++;
+  }
+  return NULL;  
+}
+
+void ingresar_dinero(int id,int cant){
+  cliente* temp = (cliente*)malloc(sizeof(cliente));
+  int i = 0;
+  while(hashArray[i].head!=NULL){
+    temp = hashArray[i].head;
+    while(temp!=NULL){
+      if(temp->id == id){
+        agregar_elemento_pila(&temp->transacciones,101,cant);
+        temp->saldo+=cant;
+        printf("Ingresado: $%d Saldo: $%d\n",temp->transacciones->cantidad,temp->saldo);
+        ingresar_nuevo(temp->nombre,temp->apellido,temp->saldo,cant,101);
+        latest_id = temp->id;
+        sacado = 'I';
       }
       temp=temp->next;
     }
     i++;
   }
-  return NULL;
 }
 
-void display(){
-  int i=0;
-  cliente* temp;
-  while(i<26 && hashArray[i].tail!=NULL){
-    temp=hashArray[i].head;
-    printf("nombre: %s\n",hashArray[i].head->nombre);
+void sacar_dinero(int id,int cant){
+  cliente* temp = (cliente*)malloc(sizeof(cliente));
+  int i = 0;
+  while(hashArray[i].head!=NULL){
+    temp = hashArray[i].head;
+    while(temp!=NULL){
+      if(temp->id == id){
+        if(temp->saldo-cant < 0){//Error si se intenta sacar mas saldo del que se tiene guardado
+          printf("No se puede sacar mas de $%d\n",temp->saldo);
+        }
+        else{
+          agregar_elemento_pila(&temp->transacciones,201,cant);
+          temp->saldo-=cant;
+          printf("Sacado: $%d Saldo: $%d\n",temp->transacciones->cantidad,temp->saldo);
+          ingresar_nuevo(temp->nombre,temp->apellido,temp->saldo,cant,201);
+          latest_id = temp->id;
+          sacado = 'S';
+        }
+
+      }
+      temp=temp->next;
+    }
     i++;
   }
+}
 
+void ingresar_nuevo(char* nombre, char* apellido, int saldo,int cantidad, int id){//funcion para ingresar nuevo cliente a la lista de transacciones
+  int i = 0;
+  while(i<10){
+    if(aux[i].nombre == NULL){
+      aux[i].nombre = nombre;
+      aux[i].apellido = apellido;
+      aux[i].saldo = saldo;
+      aux[i].cantidad = cantidad;
+      aux[i].id_tran = id;
+      break;
+    }
+    i++;
+  }
+  aux[i].nombre = nombre;
+  aux[i].apellido = apellido;
+  aux[i].saldo = saldo;
+}
+
+void display_transacciones(){
+  int i=0;
+  while(i<10 && aux[i].nombre != NULL){
+    printf("nombre: %s %s ha hecho una transaccion por: $%d con id: %d y termino con saldo: %d\n",aux[i].nombre,aux[i].apellido,aux[i].cantidad,aux[i].id_tran,aux[i].saldo);
+    i++;
+  }
+}
+
+void sacar_ultima(){
+  int id = latest_id;
+  cliente* temp = (cliente*)malloc(sizeof(cliente));
+  int i = 0;
+  while(hashArray[i].head!=NULL){
+    temp = hashArray[i].head;
+    while(temp!=NULL){
+      if(temp->id == id){
+        if(sacado == 'I'){//Descuenta la transaccion al saldo
+          temp->saldo-=temp->transacciones->cantidad;
+        }
+        else if(sacado == 'S'){//Agrega el saldo sacado
+          temp->saldo+=temp->transacciones->cantidad;
+        }
+        eliminar_elemento_pila(&temp->transacciones);//pop de la pila 
+      }
+      temp=temp->next;
+    }
+    i++;
+  }
+  i = 0;
+  while (i<10){//Elimina la transaccion de la lista
+    if(aux[i+1].nombre==NULL){
+      aux[i]= aux[i+1];
+      break;
+    }
+    i++;
+  }
+}
+
+void crear_nueva_ordenada(){
+  cliente* temp = (cliente*)malloc(sizeof(cliente));
+  lista temporal;
+  int i = 0,j=0;
+  while(hashArray[i].head!=NULL){
+    temp = hashArray[i].head;
+    while(temp!=NULL){
+      if(temp->saldo > max){
+        if(j>20){
+          break;
+        }
+        temporal.nombre = temp->nombre;
+        temporal.apellido = temp->apellido;
+        temporal.saldo = temp->saldo;
+        //max = temp->saldo;
+        if(aux2[j].nombre==NULL){
+          aux2[j] = temporal;
+          j++;
+        }
+        else{
+          j++;
+        }
+        
+      }
+      temp = temp->next;
+    }
+    i++;
+  }
+}
+
+void ordenar(){
+  int i = 0;
+  for(i=0;i<20;i++){
+    for(int j=i+1;j<20;j++){
+      if(aux2[j].saldo > aux2[i].saldo){
+        lista temp = aux2[i];
+        aux2[i] = aux2[j];
+        aux2[j] = temp;
+      }
+    }
+  }
+}
+
+void display_saldo(){
+  int i=0;
+  while(i<10 && aux2[i].nombre != NULL){
+    printf("nombre: %s %s tiene saldo: %d\n",aux2[i].nombre,aux2[i].apellido,aux2[i].saldo);
+    i++;
+  }
+}
+
+void borrar_cliente_id(int id){
+  cliente* temp = (cliente*)malloc(sizeof(cliente));
+  int i = 0;
+  //Itera hasta que se acabe el arreglo
+  while(hashArray[i].head!=NULL){
+    temp = hashArray[i].head;
+    //Itera toda la letra
+    while(temp!=NULL){
+      if(temp->id==id){//Revisa el id
+        if(temp->saldo==0){
+          printf("Eliminado: %s %s\n",temp->nombre,temp->apellido);
+          cliente* next = temp->next;
+          free(temp);
+          free(temp->nombre);
+          free(temp->apellido);
+          free(temp->email);
+          free(temp->genero);
+          free(temp->direccion);
+          temp = next;
+        }
+        else{
+          printf("no se puede eliminar, ya que su saldo es mayor a 0.\n");
+        }
+      }
+      temp=temp->next;
+    }   
+    i++;
+  }
+}
+
+void borrar_cliente_apellido(char* apellido){
+  cliente* temp = (cliente*)malloc(sizeof(cliente));
+  int i = 0;
+  //Itera hasta que se acabe el arreglo
+  while(hashArray[i].head!=NULL){
+    temp = hashArray[i].head;
+    //Itera toda la letra
+    while(temp!=NULL){
+      if(strcmp(temp->apellido,apellido)==0){//Revisa si es el apellido buscado
+        if(temp->saldo==0){
+          printf("Eliminado: %s %s\n",temp->nombre,temp->apellido);
+          cliente* next = temp->next;
+          free(temp);
+          free(temp->nombre);
+          free(temp->apellido);
+          free(temp->email);
+          free(temp->genero);
+          free(temp->direccion);
+          temp = next;
+        }
+        else{
+          printf("no se puede eliminar, ya que su saldo es mayor a 0.\n");
+        }
+      }
+      temp=temp->next;
+    }
+    i++;
+  }
+}
+
+void borrar_cliente_nombre(char* nombre){
+  cliente* temp = (cliente*)malloc(sizeof(cliente));
+  int i = 0;
+  //Itera hasta que se acabe el arreglo
+  while(hashArray[i].head!=NULL){
+    temp = hashArray[i].head;
+    //Itera toda la letra
+    while(temp!=NULL){
+      if(strcmp(temp->nombre,nombre)==0){//Revisa nombre
+        if(temp->saldo==0){
+          printf("Eliminado: %s %s\n",temp->nombre,temp->apellido);
+          cliente* next = temp->next;
+          free(temp);
+          free(temp->nombre);
+          free(temp->apellido);
+          free(temp->email);
+          free(temp->genero);
+          free(temp->direccion);
+          temp = next;
+        }
+        else{
+          printf("no se puede eliminar, ya que su saldo es mayor a 0.\n");
+        }        
+      }
+      temp=temp->next;
+    }   
+    i++;
+  }  
+  
 }

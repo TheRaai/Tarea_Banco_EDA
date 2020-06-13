@@ -2,8 +2,8 @@
 
 
 hash hashArray[26];
-lista aux[10];
-lista aux2[20];
+lista aux[1000];
+lista aux2[1000];
 int max = 1;
 
 int hashCode(char key){//Consigue el index donde va la letra
@@ -213,7 +213,6 @@ void ingresar_dinero(int id,int cant){
         temp->saldo+=cant;
         printf("Ingresado: $%d Saldo: $%d\n",temp->transacciones->cantidad,temp->saldo);
         ingresar_nuevo(temp->nombre,temp->apellido,temp->saldo,cant,101);
-        latest_id = temp->id;
         sacado = 'I';
       }
       temp=temp->next;
@@ -237,7 +236,6 @@ void sacar_dinero(int id,int cant){
           temp->saldo-=cant;
           printf("Sacado: $%d Saldo: $%d\n",temp->transacciones->cantidad,temp->saldo);
           ingresar_nuevo(temp->nombre,temp->apellido,temp->saldo,cant,201);
-          latest_id = temp->id;
           sacado = 'S';
         }
 
@@ -250,10 +248,16 @@ void sacar_dinero(int id,int cant){
 
 void ingresar_nuevo(char* nombre, char* apellido, int saldo,int cantidad, int id){//funcion para ingresar nuevo cliente a la lista de transacciones
   int i = 0;
-  while(i<10){
+  while(i<1000){
     if(aux[i].nombre == NULL){
       aux[i].nombre = nombre;
       aux[i].apellido = apellido;
+      aux[i].saldo = saldo;
+      aux[i].cantidad = cantidad;
+      aux[i].id_tran = id;
+      break;
+    }
+    else if(strcmp(aux[i].nombre,nombre)==0){
       aux[i].saldo = saldo;
       aux[i].cantidad = cantidad;
       aux[i].id_tran = id;
@@ -266,39 +270,44 @@ void ingresar_nuevo(char* nombre, char* apellido, int saldo,int cantidad, int id
   aux[i].saldo = saldo;
 }
 
-void display_transacciones(){
+void display_transacciones(int minimo){
   int i=0;
-  while(i<10 && aux[i].nombre != NULL){
-    printf("nombre: %s %s ha hecho una transaccion por: $%d con id: %d y termino con saldo: %d\n",aux[i].nombre,aux[i].apellido,aux[i].cantidad,aux[i].id_tran,aux[i].saldo);
+  cliente* temp = (cliente*)malloc(sizeof(cliente));
+  while(hashArray[i].head!=NULL){
+    temp = hashArray[i].head;
+    while(temp!=NULL){
+      if(temp->transacciones == NULL){
+        temp = temp->next;
+      }
+      else{
+        if(temp->transacciones->cantidad>minimo){
+          printf("nombre: %s %s ha hecho una transaccion por: %d con id: %d y termino con saldo: %d\n",temp->nombre,temp->apellido,temp->transacciones->cantidad,temp->transacciones->id,temp->saldo);
+        }
+        temp = temp->next;
+      }
+    }
     i++;
   }
 }
 
-void sacar_ultima(){
-  int id = latest_id;
+void sacar_ultima(int id_buscado){
   cliente* temp = (cliente*)malloc(sizeof(cliente));
+  char* nombre = (char*)malloc(sizeof(char*));
   int i = 0;
   while(hashArray[i].head!=NULL){
     temp = hashArray[i].head;
     while(temp!=NULL){
-      if(temp->id == id){
-        if(sacado == 'I'){//Descuenta la transaccion al saldo
+      if(temp->id == id_buscado){
+        if(temp->transacciones->id==101){//Descuenta la transaccion al saldo
           temp->saldo-=temp->transacciones->cantidad;
         }
-        else if(sacado == 'S'){//Agrega el saldo sacado
+        else if(temp->transacciones->id==201){//Agrega el saldo sacado
           temp->saldo+=temp->transacciones->cantidad;
         }
         eliminar_elemento_pila(&temp->transacciones);//pop de la pila 
+        strcpy(nombre,temp->nombre);
       }
       temp=temp->next;
-    }
-    i++;
-  }
-  i = 0;
-  while (i<10){//Elimina la transaccion de la lista
-    if(aux[i+1].nombre==NULL){
-      aux[i]= aux[i+1];
-      break;
     }
     i++;
   }
@@ -336,8 +345,8 @@ void crear_nueva_ordenada(){
 
 void ordenar(){
   int i = 0;
-  for(i=0;i<20;i++){
-    for(int j=i+1;j<20;j++){
+  for(i=0;i<1000;i++){
+    for(int j=i+1;j<1000;j++){
       if(aux2[j].saldo > aux2[i].saldo){
         lista temp = aux2[i];
         aux2[i] = aux2[j];
@@ -347,9 +356,9 @@ void ordenar(){
   }
 }
 
-void display_saldo(){
+void display_saldo(int cantidad){
   int i=0;
-  while(i<10 && aux2[i].nombre != NULL){
+  while(i<cantidad && aux2[i].nombre != NULL){
     printf("nombre: %s %s tiene saldo: %d\n",aux2[i].nombre,aux2[i].apellido,aux2[i].saldo);
     i++;
   }

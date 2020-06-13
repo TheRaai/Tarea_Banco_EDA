@@ -175,15 +175,24 @@ int main(void) {
       }
     }
     else if(choice == 6){
-      sacar_ultima();
+      int id;
+      printf("A que cliente le quiere deshacer la transaccion?Ingrese su id\n");
+      scanf("%d",&id);
+      sacar_ultima(id);
     }
     else if(choice == 7){
-      display_transacciones();
+      int min;
+      printf("Cuanto es el minimo que quiere mostrar?\n");
+      scanf("%d",&min);
+      display_transacciones(min);
     }
     else if(choice == 8){
+      int cant;
       crear_nueva_ordenada();
       ordenar();
-      display_saldo();
+      printf("Cuantos clientes quiere mostrar?\n");
+      scanf("%d",&cant);
+      display_saldo(cant);
     }
     else {
       printf("Opcion incorrecta.\n\n");

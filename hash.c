@@ -178,7 +178,7 @@ cliente* search_id(int id){
         return temp;
       }
       temp=temp->next;
-    }   
+    }
     i++;
   }
   return NULL;
@@ -196,10 +196,10 @@ cliente* search_nombre(char* nombre){
         return temp;
       }
       temp=temp->next;
-    }   
+    }
     i++;
   }
-  return NULL;  
+  return NULL;
 }
 
 void ingresar_dinero(int id,int cant){
@@ -304,7 +304,7 @@ void sacar_ultima(int id_buscado){
         else if(temp->transacciones->id==201){//Agrega el saldo sacado
           temp->saldo+=temp->transacciones->cantidad;
         }
-        eliminar_elemento_pila(&temp->transacciones);//pop de la pila 
+        eliminar_elemento_pila(&temp->transacciones);//pop de la pila
         strcpy(nombre,temp->nombre);
       }
       temp=temp->next;
@@ -321,9 +321,6 @@ void crear_nueva_ordenada(){
     temp = hashArray[i].head;
     while(temp!=NULL){
       if(temp->saldo > max){
-        if(j>20){
-          break;
-        }
         temporal.nombre = temp->nombre;
         temporal.apellido = temp->apellido;
         temporal.saldo = temp->saldo;
@@ -335,7 +332,7 @@ void crear_nueva_ordenada(){
         else{
           j++;
         }
-        
+
       }
       temp = temp->next;
     }
@@ -389,7 +386,7 @@ void borrar_cliente_id(int id){
         }
       }
       temp=temp->next;
-    }   
+    }
     i++;
   }
 }
@@ -446,11 +443,11 @@ void borrar_cliente_nombre(char* nombre){
         }
         else{
           printf("no se puede eliminar, ya que su saldo es mayor a 0.\n");
-        }        
+        }
       }
       temp=temp->next;
-    }   
+    }
     i++;
-  }  
-  
+  }
+
 }

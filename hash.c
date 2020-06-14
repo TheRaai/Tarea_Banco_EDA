@@ -303,6 +303,7 @@ void crear_nueva_ordenada(){
   cliente* temp = (cliente*)malloc(sizeof(cliente));
   lista temporal;
   int i = 0,j=0;
+  memset(aux2,0,999);//Limpia la lista, para no tener problemas de actualizacion
   while(hashArray[i].head!=NULL){
     temp = hashArray[i].head;
     while(temp!=NULL){

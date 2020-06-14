@@ -76,7 +76,7 @@ int main(void) {
       fgets(dir,50,stdin);
       ////////
       //Validacion de datos
-      printf("Estan correctos estos datos?\n");
+      printf("Estan correctos estos datos? Ingrese 'si' si estan correctos.\n");
       printf("Id: %d Nombre y apellido: %s %s Email: %s Genero: %s Direccion: %s",id,nom,ape,email,gen,dir);
       scanf("%s",choice);
       ///////

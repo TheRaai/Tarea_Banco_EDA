@@ -17,5 +17,5 @@ typedef struct cliente{
 }cliente;
 
 void crear_lista();
-void agregar_elemento_lista(cliente** h_ref,int id,char* nombre,char* apellido,char* email,char* genero,char* direccion);
+cliente* agregar_elemento_lista(char key,int id,char* nombre,char* apellido,char* email,char* genero,char* direccion);
 void eliminar_elemento_lista(cliente** h_ref,int id);

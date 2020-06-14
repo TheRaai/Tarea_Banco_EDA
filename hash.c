@@ -16,21 +16,7 @@ void agregar_elemento_hash(char key,int id,char* nombre, char* apellido, char* e
   index=hashCode(key);
   //Crea cliente auxiliar con los datos a ingresar
   cliente* temp = (cliente*)malloc(sizeof(cliente));
-  temp->nombre = (char*)malloc(sizeof(char*)*sizeof(nombre)+1);
-  temp->apellido = (char*)malloc(sizeof(char*)*sizeof(apellido)+1);
-  temp->email = (char*)malloc(sizeof(char*)*sizeof(email)+1);
-  temp->genero = (char*)malloc(sizeof(char*)*sizeof(genero)+1);
-  temp->direccion = (char*)malloc(sizeof(char*)*sizeof(direccion)+1);
-  temp->key = key;
-  temp->id = id;
-  strcpy(temp->nombre,nombre);
-  strcpy(temp->apellido,apellido);
-  strcpy(temp->email,email);
-  strcpy(temp->genero,genero);
-  strcpy(temp->direccion,direccion);
-  temp->saldo = 0;
-  temp->transacciones = crear_pila();
-  temp->next = NULL;
+  temp = agregar_elemento_lista(key,id,nombre,apellido,email,genero,direccion);
   //////////
   if(hashArray[index].head == NULL){//Si es el primero en su letra en ser ingresado
     hashArray[index].head = temp;
@@ -178,7 +164,7 @@ cliente* search_id(int id){
         return temp;
       }
       temp=temp->next;
-    }
+    }   
     i++;
   }
   return NULL;
@@ -196,10 +182,10 @@ cliente* search_nombre(char* nombre){
         return temp;
       }
       temp=temp->next;
-    }
+    }   
     i++;
   }
-  return NULL;
+  return NULL;  
 }
 
 void ingresar_dinero(int id,int cant){
@@ -304,7 +290,7 @@ void sacar_ultima(int id_buscado){
         else if(temp->transacciones->id==201){//Agrega el saldo sacado
           temp->saldo+=temp->transacciones->cantidad;
         }
-        eliminar_elemento_pila(&temp->transacciones);//pop de la pila
+        eliminar_elemento_pila(&temp->transacciones);//pop de la pila 
         strcpy(nombre,temp->nombre);
       }
       temp=temp->next;
@@ -332,7 +318,7 @@ void crear_nueva_ordenada(){
         else{
           j++;
         }
-
+        
       }
       temp = temp->next;
     }
@@ -386,7 +372,7 @@ void borrar_cliente_id(int id){
         }
       }
       temp=temp->next;
-    }
+    }   
     i++;
   }
 }
@@ -443,11 +429,11 @@ void borrar_cliente_nombre(char* nombre){
         }
         else{
           printf("no se puede eliminar, ya que su saldo es mayor a 0.\n");
-        }
+        }        
       }
       temp=temp->next;
-    }
+    }   
     i++;
-  }
-
+  }  
+  
 }

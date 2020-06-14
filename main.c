@@ -7,10 +7,24 @@
 
 void limpiar(){
   int i=0;
-  while(i<26 && hashArray[i].head!=NULL){
-    free(hashArray[i].head);
+  cliente* temp = (cliente*)malloc(sizeof(cliente));
+  //Itera hasta que se acabe el arreglo
+  while(hashArray[i].head!=NULL){
+    temp = hashArray[i].head;
+    //Itera toda la letra
+    while(temp!=NULL){
+      cliente*next = temp->next;
+      free(temp);
+      free(temp->nombre);
+      free(temp->apellido);
+      free(temp->email);
+      free(temp->genero);
+      free(temp->direccion);
+      temp = next;
+    }
     i++;
   }
+  free(temp);
 }
 
 int main(void) {

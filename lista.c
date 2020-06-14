@@ -1,39 +1,30 @@
 #include "lista.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void crear_lista(){
   cliente* lista = (cliente*)malloc(sizeof(cliente));
 }
 
-void agregar_elemento_lista(cliente** h_ref,int id,char* nombre,char* apellido,char* email,char* genero,char* direccion){
-  cliente* nuevo = (cliente*)malloc(sizeof(cliente));
-  cliente* temp;
-  //Crea la lista del nuevo cliente
-  nuevo -> id = id;
-  nuevo -> nombre = nombre;
-  nuevo -> apellido = apellido;
-  nuevo -> email = email;
-  nuevo -> genero = genero;
-  nuevo -> direccion = direccion;
-  nuevo -> transacciones = crear_pila();
-  nuevo -> next = NULL;
-  nuevo -> key = apellido[0];
-  agregar_elemento_pila(&nuevo->transacciones,0,0);
-  
-  if(*h_ref == NULL){
-    nuevo -> next = *h_ref;
-    *h_ref = nuevo;
-    return;
-  }
-
-  temp = *h_ref;
-
-  while(temp->next != NULL){
-    temp = temp->next;
-  }
-  nuevo -> next = temp->next;
-  temp->next = nuevo;
+cliente* agregar_elemento_lista(char key,int id,char* nombre,char* apellido,char* email,char* genero,char* direccion){
+  cliente* temp = (cliente*)malloc(sizeof(cliente));
+  temp->nombre = (char*)malloc(sizeof(char*)*sizeof(nombre)+1);
+  temp->apellido = (char*)malloc(sizeof(char*)*sizeof(apellido)+1);
+  temp->email = (char*)malloc(sizeof(char*)*sizeof(email)+1);
+  temp->genero = (char*)malloc(sizeof(char*)*sizeof(genero)+1);
+  temp->direccion = (char*)malloc(sizeof(char*)*sizeof(direccion)+1);
+  temp->key = key;
+  temp->id = id;
+  strcpy(temp->nombre,nombre);
+  strcpy(temp->apellido,apellido);
+  strcpy(temp->email,email);
+  strcpy(temp->genero,genero);
+  strcpy(temp->direccion,direccion);
+  temp->saldo = 0;
+  temp->transacciones = crear_pila();
+  temp->next = NULL;
+  return temp;
 }
 
 void eliminar_elemento_lista(cliente** h_ref,int id){
